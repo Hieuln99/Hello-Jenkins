@@ -3,13 +3,13 @@ using StackExchange.Redis;
 using Worker;
 using Worker.Services;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = Ho
 builder.Services.AddHostedService<Workers>();
 builder.Services.AddHttpClient();
 
-builder.Services.AddDbContext<WorkerDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+builder.Services.> options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 builder.Services.AddSingleton<ICaching, Caching>();
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp => ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")));
 
-var host = builder.Build();
+//var host = builder.Build();
 host.Run();
