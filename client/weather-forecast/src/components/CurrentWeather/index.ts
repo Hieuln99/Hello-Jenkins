@@ -1,1 +1,0 @@
-export { CurrentWeather } from './CurrentWeather';
