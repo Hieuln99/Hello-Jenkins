@@ -23,30 +23,30 @@ namespace Worker
                         _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                     }
 
-                    weatherDatas.Clear();
-                    foreach (var item in Model.Provinces)
-                    {
-                        // Gọi API khi khởi động
-                        await CallApiAsync(
-                            item.Id,
-                            item.Name ?? string.Empty,
-                            item.Lat ?? string.Empty,
-                            item.Lon ?? string.Empty,
-                            "7",
-                        stoppingToken);
-                    }
+                    //weatherDatas.Clear();
+                    //foreach (var item in Model.Provinces)
+                    //{
+                    //    // Gọi API khi khởi động
+                    //    await CallApiAsync(
+                    //        item.Id,
+                    //        item.Name ?? string.Empty,
+                    //        item.Lat ?? string.Empty,
+                    //        item.Lon ?? string.Empty,
+                    //        "7",
+                    //    stoppingToken);
+                    //}
 
-                    using (var scope = this._serviceProvider.CreateScope())
-                    {
-                        var dbContext = scope.ServiceProvider.GetService<WorkerDbContext>();
-                        dbContext.Database.ExecuteSqlRaw("TRUNCATE TABLE \"WeatherDatas\"");
-                        await dbContext.WeatherDatas.AddRangeAsync(weatherDatas, stoppingToken);
-                        await dbContext.SaveChangesAsync(stoppingToken);
-                    }
+                    //using (var scope = this._serviceProvider.CreateScope())
+                    //{
+                    //    var dbContext = scope.ServiceProvider.GetService<WorkerDbContext>();
+                    //    dbContext.Database.ExecuteSqlRaw("TRUNCATE TABLE \"WeatherDatas\"");
+                    //    await dbContext.WeatherDatas.AddRangeAsync(weatherDatas, stoppingToken);
+                    //    await dbContext.SaveChangesAsync(stoppingToken);
+                    //}
 
-                    _logger.LogInformation("Data added to the database.");
+                    //_logger.LogInformation("Data added to the database.");
 
-                    await Task.Delay(20000, stoppingToken);
+                    //await Task.Delay(20000, stoppingToken);
                 }
             }
             catch (Exception e)
